@@ -54,8 +54,8 @@ export const createScene = () => {
 
 
   loader.load(
-    "../src/img/piggy_bank.glb",
-    // "../src/img/box.glb",
+    "../img/piggy_bank.glb",
+    // "../img/box.glb",
     function (gltf) {
       HeroMesh = gltf.scene;
 
@@ -116,38 +116,38 @@ export const createScene = () => {
 
 
   const flower1 = {
-    src: "../src/img/flower1.glb", // Ensure path is correct and accessible
+    src: "../img/flower1.glb", // Ensure path is correct and accessible
     scale: [0.5, 0.3, 0.5],
     number: 20,
   };
 
   const stoneConfig = {
-    src: "../src/img/my-stone-01.glb", // Ensure path is correct and accessible
+    src: "../img/my-stone-01.glb", // Ensure path is correct and accessible
     scale: [0.3, 0.3, 0.3],
     number: 30,
   };
   const tree1 = {
-    src: "../src/img/tree1.glb", // Ensure path is correct and accessible
+    src: "../img/tree1.glb", // Ensure path is correct and accessible
     scale: [0.3, 0.3, 0.3],
     number: 30,
   };
   const tree2 = {
-    src: "../src/img/tree2.glb", // Ensure path is correct and accessible
+    src: "../img/tree2.glb", // Ensure path is correct and accessible
     scale: [0.3, 0.3, 0.3],
     number: 30,
   };
   const grass1 = {
-    src: "../src/img/grass1.glb", // Ensure path is correct and accessible
+    src: "../img/grass1.glb", // Ensure path is correct and accessible
     scale: [0.3, 0.3, 0.3],
     number: 100,
   };
   const grass2 = {
-    src: "../src/img/grass2.glb", // Ensure path is correct and accessible
+    src: "../img/grass2.glb", // Ensure path is correct and accessible
     scale: [0.3, 0.3, 0.3],
     number: 100,
   };
   const grass3 = {
-    src: "../src/img/grass3.glb", // Ensure path is correct and accessible
+    src: "../img/grass3.glb", // Ensure path is correct and accessible
     scale: [0.3, 0.3, 0.3],
     number: 100,
   };
@@ -263,12 +263,22 @@ export const createScene = () => {
   const goldCoin = {
     name: "goldCoin",
     type: "coin",
+    myColor: 0xff8080,
+    mySpeed: 0.1,
+    amountPoints: 200,
+    addPoints: true,
+    number: 1,
+    src: "../img/coin.glb",
+  };
+  const goldCoindown = {
+    name: "goldCoin",
+    type: "coin-down",
     myColor: 0xffcf40,
     mySpeed: 0.1,
     amountPoints: 200,
     addPoints: true,
     number: 1,
-    src: "../src/img/coin.glb",
+    src: "../img/coin.glb",
   };
   const myStone01 = {
     name: "myStone01",
@@ -278,7 +288,7 @@ export const createScene = () => {
     amountPoints: 200,
     addPoints: true,
     number: 1,
-    src: "../src/img/my-stone-01.glb",
+    src: "../img/my-stone-01.glb",
   };
   
   const blueBox = {
@@ -298,8 +308,8 @@ export const createScene = () => {
     let object;
   
     try {
-      // const gltf = await loader.loadAsync(src || "../src/img/coin.glb");
-      // const gltf = await loader.loadAsync("../src/img/box.glb");
+      // const gltf = await loader.loadAsync(src || "../img/coin.glb");
+      // const gltf = await loader.loadAsync("../img/box.glb");
       const gltf = await loader.loadAsync(src);
       object = gltf.scene;
 
@@ -308,6 +318,15 @@ export const createScene = () => {
       
       if (type === "coin"){
         initialPositionY = 2
+        object.scale.set(0.3, 0.3, 0.3);
+        object.rotation.x = -Math.PI / 2;
+        setInterval(() => {
+          object.rotation.z += 0.4;
+        }, 50);
+        
+      }
+      if (type === "coin-down"){
+        initialPositionY = 0.4
         object.scale.set(0.3, 0.3, 0.3);
         object.rotation.x = -Math.PI / 2;
         setInterval(() => {
@@ -420,6 +439,9 @@ export const createScene = () => {
   // Periodically create new objects in the scene
   setInterval(() => {
      createNewObject(goldCoin);
+  }, 1500);
+  setInterval(() => {
+     createNewObject(goldCoindown);
   }, 500);
   // setInterval(() => {
   //    createNewObject(myStone01);
@@ -431,36 +453,3 @@ export const createScene = () => {
   return scene;
 }
 
-// const sizes = {
-// 	width: window.innerWidth,
-// 	height: window.innerHeight,
-// }
-
-
-
-
-
-// let sizes = {
-//   width: window.innerWidth,
-//   height: window.innerHeight,
-// }
-
-// window.addEventListener('resize', handleResize)
-
-// function handleResize() {
-//   sizes.width = window.innerWidth
-//   sizes.height = window.innerHeight
-
-//   camera.aspect = sizes.width / sizes.height
-//   camera.updateProjectionMatrix()
-
-//   renderer.setSize(sizes.width, sizes.height)
-
-//   const pixelRatio = Math.min(window.devicePixelRatio, 2)
-//   renderer.setPixelRatio(pixelRatio)
-// }
-
-// // Dodaj ten kod, jeśli chcesz upewnić się, że event listener jest dodany po załadowaniu strony
-// document.addEventListener('DOMContentLoaded', () => {
-//   // Tu możesz dodać dodatkowe inicjacje
-// })
